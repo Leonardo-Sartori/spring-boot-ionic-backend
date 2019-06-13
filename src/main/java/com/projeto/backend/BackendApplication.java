@@ -35,7 +35,6 @@ public class BackendApplication implements CommandLineRunner {
     @Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
@@ -110,7 +109,7 @@ public class BackendApplication implements CommandLineRunner {
 		p3.getItens().addAll(Arrays.asList(ip2));
 
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
-   
+
 	}
 
 }
