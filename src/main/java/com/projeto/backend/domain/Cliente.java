@@ -27,6 +27,9 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>(); //COLEÇÂO - set garante que nao haja repeticao(Conjunto de strings)
 
+    @OneToMany(mappedBy = "cliente")
+    private  List<Pedido> pedidos = new ArrayList<>();
+
     public Cliente(){
 
     }
@@ -76,8 +79,8 @@ public class Cliente implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
     }
 
-    public TipoCliente getTipo() {
-        return TipoCliente.toEnum(tipo);
+    public TipoCliente getTipo(){
+            return TipoCliente.toEnum(tipo);
     }
 
     public void setTipo(TipoCliente tipo) {
@@ -98,6 +101,14 @@ public class Cliente implements Serializable {
 
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override
