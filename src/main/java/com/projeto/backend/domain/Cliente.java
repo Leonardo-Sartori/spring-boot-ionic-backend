@@ -1,7 +1,6 @@
 package com.projeto.backend.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projeto.backend.domain.enums.TipoCliente;
 
 import javax.persistence.*;
@@ -20,7 +19,6 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
@@ -28,7 +26,7 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>(); //COLEÇÂO - set garante que nao haja repeticao(Conjunto de strings)
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private  List<Pedido> pedidos = new ArrayList<>();
 

@@ -1,6 +1,5 @@
 package com.projeto.backend.domain;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projeto.backend.domain.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ public abstract class Pagamento implements Serializable {
     private Integer id;
     private Integer estado;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne //um para um, 1 pagamento para um pedido, o id será atribuído aqui
     @JoinColumn(name = "pedido_id")
     @MapsId //garante que seja o mesmo id

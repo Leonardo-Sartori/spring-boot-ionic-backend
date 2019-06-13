@@ -1,6 +1,5 @@
 package com.projeto.backend.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,7 +16,6 @@ public class Categoria implements Serializable {
     private Integer id;
     private String nome;
 
-    @JsonManagedReference
     @ManyToMany(mappedBy = "categorias") //mapeando muitos para muitos dos dois lados, pegando o codigo aplicado em categorias, na classe produto
     private List<Produto> produtos = new ArrayList<>();
 
