@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categorias")
-public class CategoriaResource {  
+public class CategoriaResource {
 
     @Autowired
     private CategoriaService service;
@@ -37,6 +37,13 @@ public class CategoriaResource {
     public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
         obj.setId(id);
         obj = service.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
