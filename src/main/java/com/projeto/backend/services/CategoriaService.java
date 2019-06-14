@@ -1,6 +1,7 @@
 package com.projeto.backend.services;
 
 import com.projeto.backend.domain.Categoria;
+import com.projeto.backend.dto.CategoriaDTO;
 import com.projeto.backend.repositories.CategoriaRepository;
 import com.projeto.backend.services.exceptions.DataIntegrityException;
 import com.projeto.backend.services.exceptions.ObjectNotFoundException;
@@ -55,4 +56,7 @@ public class CategoriaService {
         return repo.findAll(pageRequest);
     }
 
+    public Categoria fromDTO(CategoriaDTO objDto){ //método auxiliar que instancia uma categoria através de um DTO
+        return new Categoria(objDto.getId(), objDto.getNome());
+    }
 }
