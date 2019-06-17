@@ -1,11 +1,21 @@
 package com.projeto.backend.services;
 
+import com.projeto.backend.domain.Categoria;
 import com.projeto.backend.domain.Cliente;
+import com.projeto.backend.dto.CategoriaDTO;
+import com.projeto.backend.dto.ClienteDTO;
 import com.projeto.backend.repositories.ClienteRepository;
+import com.projeto.backend.services.exceptions.DataIntegrityException;
 import com.projeto.backend.services.exceptions.ObjectNotFoundException;
+import org.hibernate.boot.UnsupportedOrmXsdVersionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,5 +29,40 @@ public class ClienteService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
     }
+
+    public Cliente update(Cliente obj){
+        Cliente newObj = find(obj.getId());
+        updateData(newObj, obj);
+        return repo.save(newObj);
+    }
+
+    public void delete(Integer id){
+        find(id);
+        try {
+            repo.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Não é possível excluir porque há entidades relacionadas");
+        }
+    }
+
+    public List<Cliente> findAll(){
+        return repo.findAll();
+    }
+
+    public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return repo.findAll(pageRequest);
+    }
+
+    public Cliente fromDTO(ClienteDTO objDto){ //método auxiliar que instancia uma categoria através de um DTO
+        return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
+    }
+
+    private void updateData(Cliente newObj, Cliente obj){
+        newObj.setNome(obj.getNome());
+        newObj.setEmail(obj.getEmail());
+    }
 }
 
+  

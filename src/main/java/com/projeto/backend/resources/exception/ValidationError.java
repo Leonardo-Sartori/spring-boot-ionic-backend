@@ -19,7 +19,7 @@ public class ValidationError extends StandardError {
     public void setList(List<FieldMessage> list) {
         this.erros = list;
     }
-   
+
     public void addError(String fieldName, String messagem){
         erros.add(new FieldMessage(fieldName, messagem));
     }
