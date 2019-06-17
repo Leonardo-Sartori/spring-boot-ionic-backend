@@ -19,7 +19,7 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) // se for apagar o cli, automaticamente apaga o endereco 
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection
