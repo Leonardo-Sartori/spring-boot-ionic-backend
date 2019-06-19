@@ -98,7 +98,7 @@ public class Pedido implements Serializable {
     }
 
     public Set<ItemPedido> getItens() {
-        return itens;  
+        return itens;
     }
 
     public void setItens(Set<ItemPedido> itens) {
