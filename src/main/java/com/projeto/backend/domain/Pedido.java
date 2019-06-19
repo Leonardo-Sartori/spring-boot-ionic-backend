@@ -45,6 +45,14 @@ public class Pedido implements Serializable {
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
 
+    public double getValorTotal(){
+        double soma = 0.0;
+        for (ItemPedido ip : itens){
+            soma = soma + ip.getSubTotal();
+        }
+        return soma;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -90,7 +98,7 @@ public class Pedido implements Serializable {
     }
 
     public Set<ItemPedido> getItens() {
-        return itens;
+        return itens;  
     }
 
     public void setItens(Set<ItemPedido> itens) {
