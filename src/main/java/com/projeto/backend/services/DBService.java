@@ -2,6 +2,7 @@ package com.projeto.backend.services;
 
 import com.projeto.backend.domain.*;
 import com.projeto.backend.domain.enums.EstadoPagamento;
+import com.projeto.backend.domain.enums.Perfil;
 import com.projeto.backend.domain.enums.TipoCliente;
 import com.projeto.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,14 +95,20 @@ public class DBService {
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
         Cliente cli1 = new Cliente(null, "Leonardo Sartori", "leonardosartori22@hotmail.com", "10157444945", TipoCliente.PESSOAFISICA, pe.encode("123"));
+
+        Cliente cli2 = new Cliente(null, "Luan Sartori", "luansartori@hotmail.com", "48683682064", TipoCliente.PESSOAFISICA, pe.encode("123"));
+        cli2.addPerfil(Perfil.ADMIN);
+
         cli1.getTelefones().addAll(Arrays.asList("999827353", "999222222"));
+        cli2.getTelefones().addAll(Arrays.asList("999782377"));
 
         Endereco e1 = new Endereco(null, "Linha Barra do Marrecas", "0", "Casa", "Interior", "85585000", cli1, c1);
         Endereco e2 = new Endereco(null, "Linha Barra", "0", "Casa", "Interior", "85580000", cli1, c3);
 
         cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+        cli2.getEnderecos().addAll(Arrays.asList(e1, e2));
 
-        clienteRepository.saveAll(Arrays.asList(cli1));
+        clienteRepository.saveAll(Arrays.asList(cli1, cli2));
         enderecoRepository.saveAll(Arrays.asList(e1, e2));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm");
